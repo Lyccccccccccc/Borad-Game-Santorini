@@ -1,10 +1,14 @@
 package com.youchuan.hw3;
 
+import java.util.Objects;
+
 public class Position {
     private int x;
     private int y;
     private int level;
     private int occupied;
+    public static final int HASHCODE_CALCULATE1 = 17;
+    public static final int HASHCODE_CALCULATE2 = 31;
 
     /**
      * The constructor for initializing the position with x, y values and level, occupancy.
@@ -51,18 +55,45 @@ public class Position {
     public int getOccupied() { return occupied; }
 
     /**
-     * Setter for the level of the position.
+     * Package-private setter for the level of the position.
      * @param i set the level of the position to i
      */
-    public void setLevel(int i) {
+    void setLevel(int i) {
         level = i;
     }
 
     /**
-     * Setter for the occupancy of the position.
+     * Package-private setter for the occupancy of the position.
      * @param i set the occupancy of the position to i
      */
-    public void setOccupied(int i) {
+    void setOccupied(int i) {
         occupied = i;
+    }
+
+    /**
+     * Override equals method for comparing positions.
+     * @param o the other position
+     * @return true for same position, false for not
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position other = (Position) o;
+        return this.getX() == other.getX() && this.getY() == other.getY() && this.getLevel() == other.getLevel() && this.getOccupied() == other.getOccupied();
+    }
+
+    /**
+     * Override hashCode method to support equals.
+     * @return hash code
+     */
+    @Override
+    public int hashCode() {
+        int result = HASHCODE_CALCULATE1;
+        result = HASHCODE_CALCULATE2 * result + this.getX();
+        result = HASHCODE_CALCULATE2 * result + this.getY();
+        result = HASHCODE_CALCULATE2 * result + this.getLevel();
+        result = HASHCODE_CALCULATE2 * result + this.getOccupied();
+        return result;
     }
 }

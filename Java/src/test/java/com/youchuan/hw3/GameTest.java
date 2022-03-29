@@ -17,7 +17,7 @@ public class GameTest {
     public void testValidMove() {
         int workerIndex = 0;
         int ogOccupied = game.getBoard()[0][0].getOccupied();
-        game.move(1, 1, game.getNextPlayer(), workerIndex);
+        game.move(1, 1, workerIndex);
         Position newPos = game.getPlayers().get(game.getNextPlayer()).getWorkers().get(workerIndex);
         int expectedX = 1;
         int expectedY = 1;
@@ -32,7 +32,7 @@ public class GameTest {
     @Test
     public void testInvalidMove1() {
         int workerIndex = 0;
-        game.move(2, 2, game.getNextPlayer(), workerIndex);
+        game.move(2, 2, workerIndex);
         Position newPos = game.getPlayers().get(game.getNextPlayer()).getWorkers().get(workerIndex);
         int expectedX = 0;
         int expectedY = 0;
@@ -46,7 +46,7 @@ public class GameTest {
     @Test
     public void testInvalidMove2() {
         int workerIndex = 0;
-        game.move(-1, -1, game.getNextPlayer(), workerIndex);
+        game.move(-1, -1, workerIndex);
         Position newPos = game.getPlayers().get(game.getNextPlayer()).getWorkers().get(workerIndex);
         int expectedX = 0;
         int expectedY = 0;
@@ -60,7 +60,7 @@ public class GameTest {
     public void testInvalidMove3() {
         int workerIndex = 0;
         game.getBoard()[1][1].setLevel(4);
-        game.move(1, 1, game.getNextPlayer(), workerIndex);
+        game.move(1, 1, workerIndex);
         Position newPos = game.getPlayers().get(game.getNextPlayer()).getWorkers().get(workerIndex);
         int expectedX = 0;
         int expectedY = 0;
@@ -75,7 +75,7 @@ public class GameTest {
     public void testInvalidMove4() {
         int workerIndex = 0;
         game.getBoard()[1][1].setLevel(2);
-        game.move(1, 1, game.getNextPlayer(), workerIndex);
+        game.move(1, 1, workerIndex);
         Position newPos = game.getPlayers().get(game.getNextPlayer()).getWorkers().get(workerIndex);
         int expectedX = 0;
         int expectedY = 0;
@@ -89,33 +89,27 @@ public class GameTest {
     @Test
     public void testValidBuildBlock() {
         int workerIndex = 0;
-        game.buildBlock(1, 1, game.getNextPlayer(), workerIndex);
+        game.getPlayers().get(game.getNextPlayer()).setAction(1);
+        game.build(1, 1, workerIndex);
         int expectedL = 1;
         assertEquals(expectedL, game.getBoard()[1][1].getLevel());
     }
 
     @Test
-    public void testInvalidBuildBlock1() {
+    public void testInvalidBuildBlock() {
         int workerIndex = 0;
-        game.buildBlock(2, 2, game.getNextPlayer(), workerIndex);
+        game.getPlayers().get(game.getNextPlayer()).setAction(1);
+        game.build(2, 2, workerIndex);
         int expectedL = 0;
         assertEquals(expectedL, game.getBoard()[2][2].getLevel());
     }
 
     @Test
-    public void testInvalidBuildBlock2() {
-        int workerIndex = 0;
-        game.getBoard()[1][1].setLevel(3);
-        game.buildBlock(1, 1, game.getNextPlayer(), workerIndex);
-        int expectedL = 3;
-        assertEquals(expectedL, game.getBoard()[1][1].getLevel());
-    }
-
-    @Test
     public void testValidBuildDome() {
         int workerIndex = 0;
+        game.getPlayers().get(game.getNextPlayer()).setAction(1);
         game.getBoard()[1][1].setLevel(3);
-        game.buildDome(1, 1, game.getNextPlayer(), workerIndex);
+        game.build(1, 1, workerIndex);
         int expectedL = 4;
         assertEquals(expectedL, game.getBoard()[1][1].getLevel());
     }

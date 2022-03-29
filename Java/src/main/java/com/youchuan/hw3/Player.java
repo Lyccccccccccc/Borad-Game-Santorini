@@ -32,10 +32,10 @@ public class Player {
     }
 
     /**
-     * Setter for action of player.
+     * Package-private setter for action of player.
      * @param act takes integer to indicate the state
      */
-    public void setAction(int act) {
+    void setAction(int act) {
         action = act;
     }
 
@@ -48,11 +48,11 @@ public class Player {
     }
 
     /**
-     * Setter for the position of the selected worker.
+     * Package-private setter for the position of the selected worker.
      * @param workerIndex the selected worker's index in the player's worker list
      * @param goTo the position that the selected worker will go to
      */
-    public void setWorker(int workerIndex, Position goTo) {
+    void setWorker(int workerIndex, Position goTo) {
         workers.set(workerIndex, goTo);
     }
 
@@ -62,16 +62,5 @@ public class Player {
      */
     public List<Position> getWorkers() {
         return workers;
-    }
-
-    /**
-     * Getter for the workers' current levels.
-     * @return a list of workers' levels
-     */
-    public List<Integer> getWorkerLevel() {
-        List<Integer> workerLevel = new ArrayList<>(2);
-        workerLevel.add(workers.get(0).getLevel());
-        workerLevel.add(workers.get(1).getLevel());
-        return workerLevel;
     }
 }
